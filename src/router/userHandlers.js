@@ -3,17 +3,31 @@ import bcrypt from 'bcryptjs';
 // eslint-disable-next-line import/extensions
 import User from '../db/schema/user.schema.js';
 
-// eslint-disable-next-line no-unused-vars
-export default function loginHandler(req, res) {
-
+export default async function loginHandler(req, res) {
+  // TODO add proper validations for above fields using express-validator
+  const { email, password } = req.body;
+  if (!email || !password) {
+    return res.json({ message: 'Please include email, pass' });
+  }
+  try {
+    const user = await User.findOne({ email });
+    // todo extract compare logic into another function
+    if (user && (await bcrypt.compare(password, user.password))) {
+      return res.status(200).json(user);
+    }
+    return res.status(403).json({ message: 'forbidden access' });
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.log(err);
+    return res.status(403).json({ message: 'forbidden access' });
+  }
 }
 
-// eslint-disable-next-line consistent-return
 export async function registerHandler(req, res) {
+  // TODO add proper validations for above fields using express-validator
   const {
     firstName, lastName, email, password, confirmPassword,
   } = req.body;
-  // TODO add proper validations for above fields using express-validator
   if (!firstName || !lastName || !email || !password || !confirmPassword) {
     return res.json({ message: 'Please include fname, lname, email, pass, cpass' });
   }
@@ -26,6 +40,7 @@ export async function registerHandler(req, res) {
     if (exUser) {
       return res.status(409).json({ message: 'User already exists, Please login' });
     }
+    // todo extract following hashing into another file to keep the handler concise
     const encryptedPassword = await bcrypt.hash(password.toString(), 10);
     const newUser = {
       firstName,
