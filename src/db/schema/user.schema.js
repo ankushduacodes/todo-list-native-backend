@@ -1,4 +1,6 @@
-import { Schema, model } from 'mongoose';
+import mongoose from 'mongoose';
+
+const { Schema } = mongoose;
 
 const UserSchema = new Schema({
   firstName: {
@@ -31,6 +33,10 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  todos: {
+    type: [mongoose.Types.ObjectId],
+    required: false,
+  },
 });
 
-export default model('User', UserSchema);
+export default mongoose.model('User', UserSchema);
