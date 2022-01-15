@@ -3,6 +3,8 @@ import express from 'express';
 import dotenv from 'dotenv';
 // eslint-disable-next-line import/extensions
 import dbConnect from './src/db/index.js';
+// eslint-disable-next-line import/extensions
+import UserRoutes from './src/router/userRoutes.js';
 
 if (process.env.NODE_ENV !== 'production') {
   dotenv.config();
@@ -10,12 +12,12 @@ if (process.env.NODE_ENV !== 'production') {
 
 const app = express();
 const port = process.env.PORT || 8000;
-
 app.use(express.json());
 app.use(express.urlencoded({
   extended: true,
 }));
 dbConnect();
+app.use('/api/v1/user/', UserRoutes);
 
 app.get('/', (req, res) => {
   res.json({ message: 'Hello World' });
