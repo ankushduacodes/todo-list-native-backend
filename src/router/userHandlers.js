@@ -1,5 +1,3 @@
-// eslint-disable-next-line no-unused-vars
-import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 import {
@@ -67,7 +65,6 @@ export async function registerHandler(req, res) {
     await User.create(newUser);
     return res.json({ message: 'user created' });
   } catch (err) {
-    console.log(err);
     return res.status(401).json({ message: 'something went wrong on the server' });
   }
 }
