@@ -5,6 +5,8 @@ import {
 } from 'express-validator';
 // eslint-disable-next-line import/extensions
 import User from '../db/schema/user.schema.js';
+// eslint-disable-next-line import/extensions
+import { checkPassword, generateHash } from '../helpers/index.js';
 
 export default async function loginHandler(req, res) {
   const { email, password } = req.body;
@@ -15,8 +17,7 @@ export default async function loginHandler(req, res) {
   }
   try {
     const user = await User.findOne({ email });
-    // todo extract compare logic into another function
-    if (user && (await bcrypt.compare(password, user.password))) {
+    if (user && (await checkPassword(password, user.password))) {
       return res.status(200).json(user);
     }
     return res.status(403).json({ message: 'forbidden access' });
@@ -45,8 +46,7 @@ export async function registerHandler(req, res) {
     if (exUser) {
       return res.status(409).json({ message: 'User already exists, Please login' });
     }
-    // todo extract following hashing into another file to keep the handler concise
-    const encryptedPassword = await bcrypt.hash(password.toString(), 10);
+    const encryptedPassword = await generateHash(password);
     const newUser = {
       firstName,
       lastName,
