@@ -1,5 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+
 import {
   validationResult,
 } from 'express-validator';
@@ -17,10 +19,19 @@ export default async function loginHandler(req, res) {
   }
   try {
     const user = await User.findOne({ email });
-    if (user && (await checkPassword(password, user.password))) {
-      return res.status(200).json(user);
+    if (!user) {
+      return res.status(403).json({ message: 'User does not exist', errCode: 100 });
     }
-    return res.status(403).json({ message: 'forbidden access' });
+    if (!(await checkPassword(password, user.password))) {
+      return res.status(403).json({ message: 'forbidden access' });
+    }
+    const userPayload = {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+    };
+    const accessToken = jwt.sign(userPayload, process.env.JWT_ACCESS_TOKEN);
+    return res.status(200).json({ ...userPayload, accessToken });
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(err);
@@ -56,7 +67,6 @@ export async function registerHandler(req, res) {
     await User.create(newUser);
     return res.json({ message: 'user created' });
   } catch (err) {
-    // eslint-disable-next-line no-console
     console.log(err);
     return res.status(401).json({ message: 'something went wrong on the server' });
   }
