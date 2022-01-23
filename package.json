@@ -20,15 +20,16 @@
   },
   "homepage": "https://github.com/ankushduacodes/todo-list-native-backend#readme",
   "devDependencies": {
+    "dotenv": "^11.0.0",
     "eslint": "^8.6.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.25.4",
-    "nodemon": "^2.0.15",
-    "dotenv": "^11.0.0"
+    "nodemon": "^2.0.15"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "express": "^4.17.2",
+    "express-validator": "^6.14.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.1.6"
   }

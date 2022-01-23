@@ -1,13 +1,17 @@
 // eslint-disable-next-line no-unused-vars
 import bcrypt from 'bcryptjs';
+import {
+  validationResult,
+} from 'express-validator';
 // eslint-disable-next-line import/extensions
 import User from '../db/schema/user.schema.js';
 
 export default async function loginHandler(req, res) {
-  // TODO add proper validations for above fields using express-validator
   const { email, password } = req.body;
-  if (!email || !password) {
-    return res.json({ message: 'Please include email, pass' });
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const errMap = errors.mapped();
+    return res.status(403).json({ message: `Got invalid entries: ${Object.keys(errMap)}` });
   }
   try {
     const user = await User.findOne({ email });
@@ -24,12 +28,13 @@ export default async function loginHandler(req, res) {
 }
 
 export async function registerHandler(req, res) {
-  // TODO add proper validations for above fields using express-validator
   const {
     firstName, lastName, email, password, confirmPassword,
   } = req.body;
-  if (!firstName || !lastName || !email || !password || !confirmPassword) {
-    return res.json({ message: 'Please include fname, lname, email, pass, cpass' });
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const errMap = errors.mapped();
+    return res.status(403).json({ message: `Got invalid entries: ${Object.keys(errMap)}` });
   }
   if (confirmPassword !== password) {
     return res.json({ message: 'Passwords do not match... Please try again' });
