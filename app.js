@@ -1,11 +1,8 @@
 import express from 'express';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import dotenv from 'dotenv';
-// eslint-disable-next-line import/extensions
 import dbConnect from './src/db/index.js';
-// eslint-disable-next-line import/extensions
 import UserRoutes from './src/router/userRoutes.js';
-// eslint-disable-next-line import/extensions
 import todoRoutes from './src/router/todoRoutes.js';
 
 if (process.env.NODE_ENV !== 'production') {

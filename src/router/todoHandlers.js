@@ -1,8 +1,6 @@
 import { validationResult } from 'express-validator';
 import mongoose from 'mongoose';
-// eslint-disable-next-line import/extensions
 import User from '../db/schema/user.schema.js';
-// eslint-disable-next-line import/extensions
 import Todo from '../db/schema/todo.schema.js';
 
 export default async function getAllTodos(req, res) {
@@ -13,7 +11,7 @@ export default async function getAllTodos(req, res) {
   try {
     user = await User.findOne({ email: req.user.email }).session(session);
     if (!user) {
-      return res.status(500).json({ message: 'Something went wrong while adding the todo, Please try again' });
+      return res.status(500).json({ message: 'Something went wrong while fetching the todos, Please try again' });
     }
     todos = await Todo.findById(user.todos) || [];
   } catch (err) {

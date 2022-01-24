@@ -1,7 +1,5 @@
 import { Router } from 'express';
-// eslint-disable-next-line import/extensions
 import getAllTodos, { addTodo } from './todoHandlers.js';
-// eslint-disable-next-line import/extensions
 import verifyToken from '../Validations/user.validator.js';
 import {
   bookmarkValidator,

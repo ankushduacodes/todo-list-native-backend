@@ -3,9 +3,7 @@ import jwt from 'jsonwebtoken';
 import {
   validationResult,
 } from 'express-validator';
-// eslint-disable-next-line import/extensions
 import User from '../db/schema/user.schema.js';
-// eslint-disable-next-line import/extensions
 import { checkPassword, generateHash } from '../helpers/index.js';
 
 export default async function loginHandler(req, res) {
