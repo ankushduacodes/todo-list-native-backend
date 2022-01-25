@@ -17,22 +17,27 @@ const todoSchema = new Schema({
   isDone: {
     type: Boolean,
     required: true,
+    default: false,
   },
   isImportant: {
     type: Boolean,
     required: true,
+    default: false,
   },
   isBookmark: {
     type: Boolean,
     required: true,
+    default: false,
   },
   isFavourite: {
     type: Boolean,
     required: true,
+    default: false,
   },
   isDeleted: {
     type: Boolean,
     required: true,
+    default: false,
   },
 });
 
