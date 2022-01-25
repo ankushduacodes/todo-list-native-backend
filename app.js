@@ -19,6 +19,10 @@ dbConnect();
 app.use('/api/v1/user/', UserRoutes);
 app.use('/api/v1/todo/', todoRoutes);
 
+app.get('/api/v1/ping/', (req, res) => {
+  res.sendStatus(204);
+});
+
 app.listen(port, () => {
   // eslint-disable-next-line no-console
   console.log(`Listening on http://localhost:${port}`);
