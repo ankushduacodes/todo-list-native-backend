@@ -12,7 +12,7 @@ import {
   bookmarkValidator, deletedValidator,
   doneValidator,
   favouriteValidator,
-  importantValidator,
+  importantValidator, todoIdValidator,
   todoValidator,
 // eslint-disable-next-line import/extensions
 } from '../Validations/todo.validator.js';
@@ -39,30 +39,35 @@ router.post(
 
 router.post(
   '/markBookmark',
+  todoIdValidator,
   verifyToken,
   markBookmark,
 );
 
 router.post(
   '/markFavourite',
+  todoIdValidator,
   verifyToken,
   markFavourite,
 );
 
 router.post(
   '/markImportant',
+  todoIdValidator,
   verifyToken,
   markImportant,
 );
 
 router.post(
   '/markDeleted',
+  todoIdValidator,
   verifyToken,
   markDeleted,
 );
 
 router.post(
   '/markDone',
+  todoIdValidator,
   verifyToken,
   markDone,
 );
