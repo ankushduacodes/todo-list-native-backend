@@ -23,6 +23,10 @@ app.get('/api/v1/ping/', (req, res) => {
   res.sendStatus(204);
 });
 
+app.get('/favicon.ico', (req, res) => {
+  res.sendStatus(404);
+});
+
 app.listen(port, () => {
   // eslint-disable-next-line no-console
   console.log(`Listening on http://localhost:${port}`);
