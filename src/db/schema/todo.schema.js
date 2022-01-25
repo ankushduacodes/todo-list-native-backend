@@ -30,6 +30,10 @@ const todoSchema = new Schema({
     type: Boolean,
     required: true,
   },
+  isDeleted: {
+    type: Boolean,
+    required: true,
+  },
 });
 
 export default mongoose.model('Todo', todoSchema);

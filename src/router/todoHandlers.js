@@ -26,7 +26,6 @@ export default async function getAllTodos(req, res) {
 
 export async function addTodo(req, res) {
   const {
-    // eslint-disable-next-line no-unused-vars
     item, isBookmark, isImportant, isFavourite, isDone,
   } = req.body;
   const errors = validationResult(req);

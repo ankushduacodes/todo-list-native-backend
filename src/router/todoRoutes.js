@@ -2,7 +2,7 @@ import { Router } from 'express';
 import getAllTodos, { addTodo } from './todoHandlers.js';
 import verifyToken from '../Validations/user.validator.js';
 import {
-  bookmarkValidator,
+  bookmarkValidator, deletedValidator,
   doneValidator,
   favouriteValidator,
   importantValidator,
@@ -13,6 +13,16 @@ import {
 const router = Router();
 
 router.get('/allTodos', verifyToken, getAllTodos);
-router.post('/addTodos', todoValidator, doneValidator, bookmarkValidator, importantValidator, favouriteValidator, verifyToken, addTodo);
+router.post(
+  '/addTodos',
+  todoValidator,
+  doneValidator,
+  bookmarkValidator,
+  importantValidator,
+  favouriteValidator,
+  deletedValidator,
+  verifyToken,
+  addTodo,
+);
 
 export default router;

@@ -11,6 +11,13 @@ const router = Router();
 
 router.post('/login', emailValidator, loginHandler);
 
-router.post('/register', firstNameValidator, lastNameValidator, emailValidator, passwordValidator, registerHandler);
+router.post(
+  '/register',
+  firstNameValidator,
+  lastNameValidator,
+  emailValidator,
+  passwordValidator,
+  registerHandler,
+);
 
 export default router;
