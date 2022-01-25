@@ -60,3 +60,68 @@ export async function addTodo(req, res) {
   }
   return res.status(202).json({ message: 'success', todo });
 }
+
+export async function markBookmark(req, res) {
+  const { todoId } = req.body;
+  let targetTodo;
+  try {
+    targetTodo = await Todo.findOne({ todoId });
+    targetTodo.isBookmark = !targetTodo.isBookmark;
+    await targetTodo.save();
+  } catch (err) {
+    return res.status(400).json({ message: 'Could not mark as bookmark' });
+  }
+  return res.json({ message: 'success', todo: targetTodo });
+}
+
+export async function markFavourite(req, res) {
+  const { todoId } = req.body;
+  let targetTodo;
+  try {
+    targetTodo = await Todo.findOne({ todoId });
+    targetTodo.isFavourite = !targetTodo.isFavourite;
+    await targetTodo.save();
+  } catch (err) {
+    return res.status(400).json({ message: 'Could not mark as favourite' });
+  }
+  return res.json({ message: 'success', todo: targetTodo });
+}
+
+export async function markImportant(req, res) {
+  const { todoId } = req.body;
+  let targetTodo;
+  try {
+    targetTodo = await Todo.findOne({ todoId });
+    targetTodo.isImportant = !targetTodo.isImportant;
+    await targetTodo.save();
+  } catch (err) {
+    return res.status(400).json({ message: 'Could not mark as important' });
+  }
+  return res.json({ message: 'success', todo: targetTodo });
+}
+
+export async function markDeleted(req, res) {
+  const { todoId } = req.body;
+  let targetTodo;
+  try {
+    targetTodo = await Todo.findOne({ todoId });
+    targetTodo.isDeleted = !targetTodo.isDeleted;
+    await targetTodo.save();
+  } catch (err) {
+    return res.status(400).json({ message: 'Could not mark as important' });
+  }
+  return res.json({ message: 'success', todo: targetTodo });
+}
+
+export async function markDone(req, res) {
+  const { todoId } = req.body;
+  let targetTodo;
+  try {
+    targetTodo = await Todo.findOne({ todoId });
+    targetTodo.isDone = !targetTodo.isDone;
+    await targetTodo.save();
+  } catch (err) {
+    return res.status(400).json({ message: 'Could not mark as important' });
+  }
+  return res.json({ message: 'success', todo: targetTodo });
+}
