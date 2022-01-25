@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import getAllTodos, {
-  addTodo,
+  addTodo, deleteTodo,
   markBookmark,
   markDeleted,
   markDone,
@@ -70,6 +70,13 @@ router.post(
   todoIdValidator,
   verifyToken,
   markDone,
+);
+
+router.delete(
+  '/deleteTodo',
+  todoIdValidator,
+  verifyToken,
+  deleteTodo,
 );
 
 export default router;
