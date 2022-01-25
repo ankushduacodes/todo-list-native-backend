@@ -79,6 +79,9 @@ export async function markFavourite(req, res) {
   let targetTodo;
   try {
     targetTodo = await Todo.findOne({ todoId });
+    if (!targetTodo) {
+      return res.status(400).json({ message: 'Could not find the todo' });
+    }
     targetTodo.isFavourite = !targetTodo.isFavourite;
     await targetTodo.save();
   } catch (err) {
@@ -92,6 +95,9 @@ export async function markImportant(req, res) {
   let targetTodo;
   try {
     targetTodo = await Todo.findOne({ todoId });
+    if (!targetTodo) {
+      return res.status(400).json({ message: 'Could not find the todo' });
+    }
     targetTodo.isImportant = !targetTodo.isImportant;
     await targetTodo.save();
   } catch (err) {
@@ -105,10 +111,13 @@ export async function markDeleted(req, res) {
   let targetTodo;
   try {
     targetTodo = await Todo.findOne({ todoId });
+    if (!targetTodo) {
+      return res.status(400).json({ message: 'Could not find the todo' });
+    }
     targetTodo.isDeleted = !targetTodo.isDeleted;
     await targetTodo.save();
   } catch (err) {
-    return res.status(400).json({ message: 'Could not mark as important' });
+    return res.status(400).json({ message: 'Could not mark as deleted' });
   }
   return res.json({ message: 'success', todo: targetTodo });
 }
@@ -118,10 +127,13 @@ export async function markDone(req, res) {
   let targetTodo;
   try {
     targetTodo = await Todo.findOne({ todoId });
+    if (!targetTodo) {
+      return res.status(400).json({ message: 'Could not find the todo' });
+    }
     targetTodo.isDone = !targetTodo.isDone;
     await targetTodo.save();
   } catch (err) {
-    return res.status(400).json({ message: 'Could not mark as important' });
+    return res.status(400).json({ message: 'Could not mark as Done' });
   }
   return res.json({ message: 'success', todo: targetTodo });
 }
