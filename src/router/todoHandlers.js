@@ -64,12 +64,18 @@ export async function addTodo(req, res) {
 export async function markBookmark(req, res) {
   const { todoId } = req.body;
   let targetTodo;
+  const session = await mongoose.startSession();
+  session.startTransaction();
   try {
     targetTodo = await Todo.findOne({ todoId });
     targetTodo.isBookmark = !targetTodo.isBookmark;
     await targetTodo.save();
+    await session.commitTransaction();
   } catch (err) {
+    await session.abortTransaction();
     return res.status(400).json({ message: 'Could not mark as bookmark' });
+  } finally {
+    await session.endSession();
   }
   return res.json({ message: 'success', todo: targetTodo });
 }
@@ -77,6 +83,8 @@ export async function markBookmark(req, res) {
 export async function markFavourite(req, res) {
   const { todoId } = req.body;
   let targetTodo;
+  const session = await mongoose.startSession();
+  session.startTransaction();
   try {
     targetTodo = await Todo.findOne({ todoId });
     if (!targetTodo) {
@@ -84,8 +92,12 @@ export async function markFavourite(req, res) {
     }
     targetTodo.isFavourite = !targetTodo.isFavourite;
     await targetTodo.save();
+    await session.commitTransaction();
   } catch (err) {
+    await session.abortTransaction();
     return res.status(400).json({ message: 'Could not mark as favourite' });
+  } finally {
+    await session.endSession();
   }
   return res.json({ message: 'success', todo: targetTodo });
 }
@@ -93,6 +105,8 @@ export async function markFavourite(req, res) {
 export async function markImportant(req, res) {
   const { todoId } = req.body;
   let targetTodo;
+  const session = await mongoose.startSession();
+  session.startTransaction();
   try {
     targetTodo = await Todo.findOne({ todoId });
     if (!targetTodo) {
@@ -100,8 +114,12 @@ export async function markImportant(req, res) {
     }
     targetTodo.isImportant = !targetTodo.isImportant;
     await targetTodo.save();
+    await session.commitTransaction();
   } catch (err) {
+    await session.abortTransaction();
     return res.status(400).json({ message: 'Could not mark as important' });
+  } finally {
+    await session.endSession();
   }
   return res.json({ message: 'success', todo: targetTodo });
 }
@@ -109,6 +127,8 @@ export async function markImportant(req, res) {
 export async function markDeleted(req, res) {
   const { todoId } = req.body;
   let targetTodo;
+  const session = await mongoose.startSession();
+  session.startTransaction();
   try {
     targetTodo = await Todo.findOne({ todoId });
     if (!targetTodo) {
@@ -116,8 +136,12 @@ export async function markDeleted(req, res) {
     }
     targetTodo.isDeleted = !targetTodo.isDeleted;
     await targetTodo.save();
+    await session.commitTransaction();
   } catch (err) {
+    await session.abortTransaction();
     return res.status(400).json({ message: 'Could not mark as deleted' });
+  } finally {
+    await session.endSession();
   }
   return res.json({ message: 'success', todo: targetTodo });
 }
@@ -125,6 +149,8 @@ export async function markDeleted(req, res) {
 export async function markDone(req, res) {
   const { todoId } = req.body;
   let targetTodo;
+  const session = await mongoose.startSession();
+  session.startTransaction();
   try {
     targetTodo = await Todo.findOne({ todoId });
     if (!targetTodo) {
@@ -132,8 +158,12 @@ export async function markDone(req, res) {
     }
     targetTodo.isDone = !targetTodo.isDone;
     await targetTodo.save();
+    await session.commitTransaction();
   } catch (err) {
+    await session.abortTransaction();
     return res.status(400).json({ message: 'Could not mark as Done' });
+  } finally {
+    await session.endSession();
   }
   return res.json({ message: 'success', todo: targetTodo });
 }
