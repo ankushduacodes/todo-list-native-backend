@@ -19,10 +19,6 @@ dbConnect();
 app.use('/api/v1/user/', UserRoutes);
 app.use('/api/v1/todo/', todoRoutes);
 
-app.get('/', (req, res) => {
-  res.json({ message: 'Hello World' });
-});
-
 app.listen(port, () => {
   // eslint-disable-next-line no-console
   console.log(`Listening on http://localhost:${port}`);

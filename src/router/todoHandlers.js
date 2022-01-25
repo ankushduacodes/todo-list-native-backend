@@ -13,7 +13,7 @@ export default async function getAllTodos(req, res) {
     if (!user) {
       return res.status(500).json({ message: 'Something went wrong while fetching the todos, Please try again' });
     }
-    todos = await Todo.findById(user.todos) || [];
+    todos = await Todo.find({ _id: user.todos }) || [];
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(err);

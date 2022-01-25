@@ -28,7 +28,7 @@ export default function verifyToken(req, res, next) {
   if (!authToken) {
     return res.sendStatus(401);
   }
-  jwt.verify(authToken, process.env.JWT_ACCESS_TOKEN, (err, user) => {
+  jwt.verify(authToken, process.env.JWT_ACCESS_TOKEN, {}, (err, user) => {
     if (err) {
       return res.sendStatus(403);
     }
