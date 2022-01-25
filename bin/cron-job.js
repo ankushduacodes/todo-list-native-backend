@@ -1,6 +1,3 @@
-import ping from 'ping';
+import isReachable from 'is-reachable';
 
-const host = 'https://todo-list-app-bknd.herokuapp.com/';
-const res = await ping.promise.probe(host);
-
-console.log(res);
+console.log(await isReachable('https://todo-list-app-bknd.herokuapp.com/api/v1/todo/allTodos'));
