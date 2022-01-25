@@ -1,3 +1,3 @@
 import isReachable from 'is-reachable';
 
-console.log(await isReachable('http://localhost:8000/api/v1/ping/'));
+console.log(await isReachable('https://todo-list-app-bknd.herokuapp.com/api/v1/ping'));
