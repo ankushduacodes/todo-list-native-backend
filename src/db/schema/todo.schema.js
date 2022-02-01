@@ -1,12 +1,12 @@
 import mongoose from 'mongoose';
-import crypto from 'crypto';
+// import crypto from 'crypto';
 
 const { Schema } = mongoose;
 
 const todoSchema = new Schema({
   todoId: {
     type: String,
-    default: crypto.randomBytes(64).toString('hex'),
+    required: true,
   },
   item: {
     type: String,

@@ -26,7 +26,7 @@ router.get(
 );
 
 router.post(
-  '/addTodos',
+  '/addTodo',
   todoValidator,
   doneValidator,
   bookmarkValidator,

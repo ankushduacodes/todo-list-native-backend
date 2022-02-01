@@ -1,5 +1,6 @@
 import { validationResult } from 'express-validator';
 import mongoose from 'mongoose';
+import crypto from 'crypto';
 import User from '../db/schema/user.schema.js';
 import Todo from '../db/schema/todo.schema.js';
 
@@ -26,15 +27,16 @@ export default async function getAllTodos(req, res) {
 
 export async function addTodo(req, res) {
   const {
-    item, isBookmark, isImportant, isFavourite, isDone,
+    item, isBookmark, isImportant, isFavourite, isDone, isDeleted,
   } = req.body;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     const errMap = errors.mapped();
     return res.status(400).json({ message: 'Please provide all the required fields', err: errMap });
   }
+  const todoId = crypto.randomBytes(64).toString('hex');
   const newTodo = {
-    item, isFavourite, isBookmark, isDone, isImportant,
+    item, isFavourite, isBookmark, isDone, isImportant, isDeleted, todoId,
   };
   const session = await mongoose.startSession();
   let user;
