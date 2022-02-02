@@ -42,11 +42,9 @@ export async function registerHandler(req, res) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     const errMap = errors.mapped();
-    console.log(errMap);
     return res.status(403).json({ message: `Got invalid entries: ${Object.keys(errMap)}` });
   }
   if (confirmPassword !== password) {
-    console.log(confirmPassword);
     return res.status(403).json({ message: 'Passwords do not match... Please try again' });
   }
 
