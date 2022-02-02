@@ -19,6 +19,7 @@ app.use(express.urlencoded({
 dbConnect();
 const allowedOrigins = [
   'http://localhost:8080',
+  'https://sharp-aryabhata-6f4c7f.netlify.app',
 ];
 
 const corsOptions = {
