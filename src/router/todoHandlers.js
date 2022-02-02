@@ -152,7 +152,7 @@ export async function markDeleted(req, res) {
 }
 
 export async function markDone(req, res) {
-  const { todoId } = req.body;
+  const { todoId, isDone } = req.body;
   let targetTodo;
   const session = await mongoose.startSession();
   session.startTransaction();
@@ -161,7 +161,7 @@ export async function markDone(req, res) {
     if (!targetTodo) {
       return res.status(500).json({ message: 'Could not find the todo' });
     }
-    targetTodo.isDone = !targetTodo.isDone;
+    targetTodo.isDone = isDone;
     await targetTodo.save();
     await session.commitTransaction();
   } catch (err) {
