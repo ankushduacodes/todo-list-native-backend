@@ -73,8 +73,7 @@ router.post(
 );
 
 router.delete(
-  '/deleteTodo',
-  todoIdValidator,
+  '/deleteTodo/:id',
   verifyToken,
   deleteTodo,
 );

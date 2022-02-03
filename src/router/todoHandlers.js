@@ -174,13 +174,13 @@ export async function markDone(req, res) {
 }
 
 export async function deleteTodo(req, res) {
-  const { todoId } = req.body;
+  const { id } = req.params;
   let targetTodo;
   let user;
   const session = await mongoose.startSession();
   session.startTransaction();
   try {
-    targetTodo = await Todo.findOneAndDelete({ todoId }).session(session);
+    targetTodo = await Todo.findOneAndDelete({ todoId: id }).session(session);
     if (!targetTodo) {
       return res.status(500).json({ message: 'Could not find the todo' });
     }
