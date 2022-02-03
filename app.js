@@ -20,6 +20,7 @@ dbConnect();
 const allowedOrigins = [
   'http://localhost:8080',
   'https://sharp-aryabhata-6f4c7f.netlify.app',
+  'http://192.168.1.6:8080/',
 ];
 
 const corsOptions = {
