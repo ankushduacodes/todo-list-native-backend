@@ -1,7 +1,9 @@
 import bcrypt from 'bcryptjs';
 
 export async function generateHash(password) {
-  return bcrypt.hash(password.toString(), 10);
+  const saltRounds = 10;
+  const salt = await bcrypt.genSalt(saltRounds);
+  return bcrypt.hash(password, salt);
 }
 
 export async function checkPassword(password, userPassword) {
