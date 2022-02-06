@@ -54,14 +54,12 @@ export async function registerHandler(req, res) {
       return res.status(409).json({ message: 'User already exists, Please login' });
     }
     const encryptedPassword = await generateHash(password);
-    console.log(encryptedPassword);
     const newUser = await new User({
       firstName,
       lastName,
       email,
       password: encryptedPassword,
     });
-    console.log(newUser);
     await newUser.save();
     return res.json({ message: 'user created' });
   } catch (err) {
