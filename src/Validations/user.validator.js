@@ -19,7 +19,7 @@ export const emailValidator = check('email').trim().escape().notEmpty()
 export const passwordValidator = check('password').trim().notEmpty().isLength({
   min: 8,
 })
-  .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/, 'i');
+  .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, 'i');
 
 // eslint-disable-next-line consistent-return
 export default function verifyToken(req, res, next) {
